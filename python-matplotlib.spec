@@ -8,7 +8,7 @@ Release:	0.1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
-# Source0-md5:	94da6c11af51d5872c498e59fd31c9a0
+# Source0-md5:	a5ef59a9eed934708eedef5a0125d8d8
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	python >= 2.2.1
 %pyrequires_eq	python-modules
