@@ -11,8 +11,6 @@ Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
 # Source0-md5:	74dde3c3e33797f56ebd6ca578090f8e
 URL:		http://matplotlib.sourceforge.net/
-Requires:       python-numpy-MA
-Requires:       python-numpy-FFT
 BuildRequires:	freetype-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.2.1
@@ -21,6 +19,8 @@ BuildRequires:	python-pygtk-devel
 BuildRequires:	python-numarray-devel
 BuildRequires:	python-numpy-devel
 %pyrequires_eq	python-modules
+Requires:	python-numpy-FFT
+Requires:	python-numpy-MA
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
