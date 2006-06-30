@@ -1,26 +1,31 @@
 # TODO:
-# - files section
+# - use system fonts (*.ttf and metrics in mpl-data dir)
 %define		module	matplotlib
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 Version:	0.87.2
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
 # Source0-md5:	74dde3c3e33797f56ebd6ca578090f8e
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	freetype-devel
+BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.2.1
+BuildRequires:	python-dateutil
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
+BuildRequires:	python-pytz
 BuildRequires:	python-numarray-devel
 BuildRequires:	python-numpy-devel
 %pyrequires_eq	python-modules
+Requires:	python-dateutil
 Requires:	python-numpy-FFT
 Requires:	python-numpy-MA
+Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -48,7 +53,7 @@ python setup.py install \
 	--root=$RPM_BUILD_ROOT \
 	--optimize=2
 
-find $RPM_BUILD_ROOT%{py_sitescriptdir}/ -name \*.py | xargs rm -f
+find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py | xargs rm -f
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -56,4 +61,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG KNOWN_BUGS NUMARRAY_ISSUES README TODO
-%{py_libdir}/*/*
+%dir %{py_sitedir}/matplotlib
+%{py_sitedir}/matplotlib/*.py[co]
+%attr(755,root,root) %{py_sitedir}/matplotlib/*.so
+%dir %{py_sitedir}/matplotlib/backends
+%{py_sitedir}/matplotlib/backends/*.py[co]
+%attr(755,root,root) %{py_sitedir}/matplotlib/backends/*.so
+%dir %{py_sitedir}/matplotlib/enthought
+%{py_sitedir}/matplotlib/enthought/*.py[co]
+%{py_sitedir}/matplotlib/enthought/resource
+%dir %{py_sitedir}/matplotlib/enthought/traits
+%{py_sitedir}/matplotlib/enthought/traits/*.py[co]
+%attr(755,root,root) %{py_sitedir}/matplotlib/enthought/traits/*.so
+%{py_sitedir}/matplotlib/enthought/traits/ui
+%{py_sitedir}/matplotlib/enthought/util
+%{py_sitedir}/matplotlib/mpl-data
+%{py_sitedir}/matplotlib/numerix
+%{py_sitedir}/matplotlib/toolkits
+%{py_sitedir}/pylab.py[co]
