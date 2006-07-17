@@ -1,11 +1,11 @@
 # TODO:
-# - use system fonts (*.ttf and metrics in mpl-data dir)
+# - use system fonts (cm*.ttf) and metrics in mpl-data dir?
 %define		module	matplotlib
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 Version:	0.87.4
-Release:	0.1
+Release:	0.3
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
@@ -15,16 +15,16 @@ BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.2.1
+BuildRequires:	python-Numeric-devel
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
 BuildRequires:	python-pygtk-devel
 BuildRequires:	python-pytz
 BuildRequires:	python-numarray-devel
-BuildRequires:	python-numpy-devel
+BuildRequires:	python-numpy-devel >= 1:0.9
 %pyrequires_eq	python-modules
 Requires:	python-dateutil
-Requires:	python-numpy-FFT
-Requires:	python-numpy-MA
+Requires:	python-numpy-FFT >= 1:0.9
 Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,6 +54,9 @@ python setup.py install \
 	--optimize=2
 
 find $RPM_BUILD_ROOT%{py_sitedir} -name \*.py | xargs rm -f
+
+# matplotlib can use system fonts, so drop these copies
+rm -f $RPM_BUILD_ROOT%{py_sitedir}/matplotlib/mpl-data/Vera*.ttf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
