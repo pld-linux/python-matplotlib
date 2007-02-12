@@ -2,7 +2,7 @@
 # - use system fonts (cm*.ttf) and metrics in mpl-data dir?
 %define		module	matplotlib
 Summary:	Matlab(TM) style Python plotting package
-Summary(pl):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
+Summary(pl.UTF-8):   Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 Version:	0.90.0
 Release:	0.1
@@ -35,11 +35,11 @@ matlab plotting for inspiration. Although the main lib is object
 oriented, there is a functional interface "pylab" for people coming
 from Matlab.
 
-%description -l pl
-matplotlib usi³uje tworzyæ grafikê 2D o jako¶ci publikacji przy u¿yciu
-wykresów matlaba jako inspiracji. Chocia¿ g³ówna biblioteka jest
+%description -l pl.UTF-8
+matplotlib usiÅ‚uje tworzyÄ‡ grafikÄ™ 2D o jakoÅ›ci publikacji przy uÅ¼yciu
+wykresÃ³w matlaba jako inspiracji. ChociaÅ¼ gÅ‚Ã³wna biblioteka jest
 zorientowana obiektowo, jest interfejs funkcyjny "pylab" dla ludzi
-przechodz±cych z Matlaba.
+przechodzÄ…cych z Matlaba.
 
 %prep
 %setup -q -n %{module}-%{version}
