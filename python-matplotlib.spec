@@ -4,12 +4,12 @@
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
-Version:	0.90.0
+Version:	0.90.1
 Release:	0.2
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
-# Source0-md5:	31ea12395826080b5be9c1e292cda6f1
+# Source0-md5:	e1344bd72660e7c9c0b7540a72cc45b8
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
@@ -17,7 +17,6 @@ BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.4
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
-BuildRequires:	python-numpy-FFT
 BuildRequires:	python-numpy-devel >= 1:1.0.1
 BuildRequires:	python-numpy-numarray-devel
 BuildRequires:	python-pygtk-devel
@@ -25,7 +24,7 @@ BuildRequires:	python-pytz
 BuildRequires:	tk-devel
 %pyrequires_eq	python-modules
 Requires:	python-dateutil
-Requires:	python-numpy-FFT >= 1:1.0.1
+Requires:	python-numpy
 Requires:	python-numpy-oldnumeric
 Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -66,21 +65,22 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG KNOWN_BUGS NUMARRAY_ISSUES README TODO
-%dir %{py_sitedir}/matplotlib
-%{py_sitedir}/matplotlib/*.py[co]
-%attr(755,root,root) %{py_sitedir}/matplotlib/*.so
-%dir %{py_sitedir}/matplotlib/backends
-%{py_sitedir}/matplotlib/backends/*.py[co]
-%attr(755,root,root) %{py_sitedir}/matplotlib/backends/*.so
-%dir %{py_sitedir}/matplotlib/enthought
-%{py_sitedir}/matplotlib/enthought/*.py[co]
-%{py_sitedir}/matplotlib/enthought/resource
-%dir %{py_sitedir}/matplotlib/enthought/traits
-%{py_sitedir}/matplotlib/enthought/traits/*.py[co]
-%attr(755,root,root) %{py_sitedir}/matplotlib/enthought/traits/*.so
-%{py_sitedir}/matplotlib/enthought/traits/ui
-%{py_sitedir}/matplotlib/enthought/util
-%{py_sitedir}/matplotlib/mpl-data
-%{py_sitedir}/matplotlib/numerix
-%{py_sitedir}/matplotlib/toolkits
+%dir %{py_sitedir}/%{module}
+%{py_sitedir}/%{module}/*.py[co]
+%attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%dir %{py_sitedir}/%{module}/backends
+%{py_sitedir}/%{module}/backends/*.py[co]
+%attr(755,root,root) %{py_sitedir}/%{module}/backends/*.so
+%dir %{py_sitedir}/%{module}/enthought
+%{py_sitedir}/%{module}/enthought/*.py[co]
+%{py_sitedir}/%{module}/enthought/resource
+%dir %{py_sitedir}/%{module}/enthought/traits
+%{py_sitedir}/%{module}/enthought/traits/*.py[co]
+%attr(755,root,root) %{py_sitedir}/%{module}/enthought/traits/*.so
+%{py_sitedir}/%{module}/enthought/traits/ui
+%{py_sitedir}/%{module}/enthought/util
+%{py_sitedir}/%{module}/mpl-data
+%{py_sitedir}/%{module}/numerix
+%{py_sitedir}/%{module}/toolkits
 %{py_sitedir}/pylab.py[co]
+%{py_sitedir}/%{module}-*.egg-info
