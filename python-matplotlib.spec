@@ -17,14 +17,14 @@ BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.4
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
-BuildRequires:	python-numpy-devel >= 1:1.0.1
+BuildRequires:	python-numpy-devel >= 1:1.0.3
 BuildRequires:	python-numpy-numarray-devel
 BuildRequires:	python-pygtk-devel
 BuildRequires:	python-pytz
 BuildRequires:	tk-devel
 %pyrequires_eq	python-modules
 Requires:	python-dateutil
-Requires:	python-numpy
+Requires:	python-numpy >= 1:1.0.3
 Requires:	python-numpy-oldnumeric
 Requires:	python-pytz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
