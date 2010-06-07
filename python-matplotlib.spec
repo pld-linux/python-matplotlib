@@ -5,14 +5,12 @@
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
-Version:	0.99.1.1
-Release:	3
+Version:	0.99.3
+Release:	1
 License:	GPL
 Group:		Libraries/Python
-# http://downloads.sourceforge.net/matplotlib/matplotlib-0.98.5.2.tar.gz?modtime=1229668616&big_mirror=0
 Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
-# Source0-md5:	bd0894dd924eb5bec84c42d26041a544
-Patch0:		%{name}-libpng.patch
+# Source0-md5:	c21a367dea3b98660adbb898a2f53dbc
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
@@ -52,7 +50,6 @@ przechodzących z Matlaba.
 
 %prep
 %setup -q -n %{module}-%{version}
-%patch0 -p1
 
 rm -f setup.cfg
 
@@ -90,6 +87,7 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/mpl-data
 %{py_sitedir}/%{module}/numerix
 %{py_sitedir}/%{module}/projections
+%{py_sitedir}/%{module}/sphinxext
 
 %{py_sitedir}/mpl_toolkits
 %{py_sitedir}/pylab.py[co]
