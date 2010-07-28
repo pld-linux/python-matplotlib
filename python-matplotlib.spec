@@ -71,6 +71,8 @@ python setup.py install \
 # matplotlib can use system fonts, so drop these copies
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/matplotlib/mpl-data/Vera*.ttf
 
+rm -rf $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tests
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -83,11 +85,15 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{py_sitedir}/%{module}/backends
 %{py_sitedir}/%{module}/backends/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/backends/*.so
+%dir %{py_sitedir}/%{module}/backends/qt4_editor
+%{py_sitedir}/%{module}/backends/qt4_editor/*.py[co]
 %{py_sitedir}/%{module}/delaunay
 %{py_sitedir}/%{module}/mpl-data
 %{py_sitedir}/%{module}/numerix
 %{py_sitedir}/%{module}/projections
 %{py_sitedir}/%{module}/sphinxext
+%{py_sitedir}/%{module}/testing
+%{py_sitedir}/%{module}/tri
 
 %{py_sitedir}/mpl_toolkits
 %{py_sitedir}/pylab.py[co]
