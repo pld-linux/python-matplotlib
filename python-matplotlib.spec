@@ -9,25 +9,26 @@ Version:	1.0.0
 Release:	2
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://dl.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
 # Source0-md5:	7d964de548c9887917762a11e0ffecd3
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	python >= 2.4
+BuildRequires:	python-PyQt
+BuildRequires:	python-PyQt4
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
 BuildRequires:	python-numpy-devel >= 1:1.0.3
 BuildRequires:	python-numpy-numarray-devel
 BuildRequires:	python-pygtk-devel
-BuildRequires:	python-PyQt
-BuildRequires:	python-PyQt4
 BuildRequires:	python-pytz
 # Need for import pyqtconfig needed by qt detection.
 BuildRequires:	python-sip-devel
 BuildRequires:	python-tkinter
 BuildRequires:	python-wxPython
+BuildRequires:	rpm-pythonprov
 BuildRequires:	tk-devel
 %pyrequires_eq	python-modules
 Requires:	python-dateutil
