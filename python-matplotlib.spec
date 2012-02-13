@@ -5,12 +5,12 @@
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
-Version:	1.0.1
-Release:	3
+Version:	1.1.0
+Release:	1
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
-# Source0-md5:	2196c0482d5b33dc8d33f67bbafc1323
+# Source0-md5:	57a627f30b3b27821f808659889514c2
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG KNOWN_BUGS TODO
+%doc CHANGELOG README.txt TODO
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
@@ -90,7 +90,6 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/%{module}/backends/qt4_editor/*.py[co]
 %{py_sitedir}/%{module}/delaunay
 %{py_sitedir}/%{module}/mpl-data
-%{py_sitedir}/%{module}/numerix
 %{py_sitedir}/%{module}/projections
 %{py_sitedir}/%{module}/sphinxext
 %{py_sitedir}/%{module}/testing
