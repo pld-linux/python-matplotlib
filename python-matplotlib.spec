@@ -1,6 +1,5 @@
 # TODO:
 # - use system fonts (cm*.ttf) and metrics in mpl-data dir?
-# - decide what to do with matplotlib/backends/Matplotlib.nib/*.nib files
 %define		module	matplotlib
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
@@ -88,6 +87,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{py_sitedir}/%{module}/backends/*.so
 %dir %{py_sitedir}/%{module}/backends/qt4_editor
 %{py_sitedir}/%{module}/backends/qt4_editor/*.py[co]
+%dir %{py_sitedir}/%{module}/backends/Matplotlib.nib
+%{py_sitedir}/%{module}/backends/Matplotlib.nib/*.nib
 %{py_sitedir}/%{module}/delaunay
 %{py_sitedir}/%{module}/mpl-data
 %{py_sitedir}/%{module}/projections
