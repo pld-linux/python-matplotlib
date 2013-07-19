@@ -10,7 +10,7 @@ Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 Version:	1.2.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
@@ -76,6 +76,9 @@ Summary:	Matlab(TM) style Python 3 plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie 3 podobny do Matlaba(TM)
 Group:		Libraries/Python
 Requires:	python3-six
+Requires:	python3-dateutil
+Requires:	python3-numpy
+Requires:	python3-pytz
 
 %description -n python3-%{module}
 matplotlib strives to produce publication quality 2D graphics using
