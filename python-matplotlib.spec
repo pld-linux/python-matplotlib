@@ -21,7 +21,6 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 %if %{with python2}
 BuildRequires:	python >= 1:2.6
-BuildRequires:	python-PyQt
 BuildRequires:	python-PyQt4
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
@@ -38,8 +37,7 @@ BuildRequires:	python-wxPython
 %if %{with python3}
 BuildRequires:	python3 >= 1:3.3
 BuildRequires:	python3-2to3
-#BuildRequires:	python3-PyQt
-#BuildRequires:	python3-PyQt4
+BuildRequires:	python3-PyQt4
 BuildRequires:	python3-dateutil
 BuildRequires:	python3-devel
 BuildRequires:	python3-numpy-devel >= 1:1.0.3
