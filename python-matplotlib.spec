@@ -99,20 +99,18 @@ rm -f setup.cfg
 export CFLAGS="%{rpmcflags}"
 
 %if %{with python2}
-%{__python} setup.py build
+%py_build
 %endif
 
 %if %{with python3}
-%{__python3} setup.py build
+%py3_build
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %if %{with python2}
-%{__python} setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+%py_install
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
@@ -125,9 +123,7 @@ rm -rf $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tests
 %endif
 
 %if %{with python3}
-%{__python3} setup.py install \
-	--root=$RPM_BUILD_ROOT \
-	--optimize=2
+%py3_install
 
 %py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
 %py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
