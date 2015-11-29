@@ -16,6 +16,7 @@ Group:		Libraries/Python
 Source0:	http://downloads.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
 # Source0-md5:	326a959c4c3f85417a3daf805cfb54f9
 URL:		http://matplotlib.sourceforge.net/
+BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	freetype-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
