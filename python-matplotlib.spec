@@ -9,12 +9,12 @@
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
-Version:	1.2.1
-Release:	10
+Version:	1.5.3
+Release:	1
 License:	GPL
 Group:		Libraries/Python
-Source0:	http://downloads.sourceforge.net/matplotlib/%{module}-%{version}.tar.gz
-# Source0-md5:	326a959c4c3f85417a3daf805cfb54f9
+Source0:	https://github.com/matplotlib/matplotlib/archive/v%{version}.tar.gz
+# Source0-md5:	079d9d8cd9910e00ed1236fb44a518a7
 URL:		http://matplotlib.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.710
 BuildRequires:	freetype-devel
@@ -142,21 +142,27 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc CHANGELOG README.txt TODO
+%doc CHANGELOG README.rst
 %dir %{py_sitedir}/%{module}
 %{py_sitedir}/%{module}/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/*.so
+%dir %{py_sitedir}/%{module}/axes
+%{py_sitedir}/%{module}/axes/*.py[co]
 %dir %{py_sitedir}/%{module}/backends
 %{py_sitedir}/%{module}/backends/*.py[co]
 %attr(755,root,root) %{py_sitedir}/%{module}/backends/*.so
-%dir %{py_sitedir}/%{module}/backends/qt4_editor
-%{py_sitedir}/%{module}/backends/qt4_editor/*.py[co]
+%dir %{py_sitedir}/%{module}/backends/qt_editor
+%{py_sitedir}/%{module}/backends/qt_editor/*.py[co]
 %dir %{py_sitedir}/%{module}/backends/Matplotlib.nib
 %{py_sitedir}/%{module}/backends/Matplotlib.nib/*.nib
+%{py_sitedir}/%{module}/backends/web_backend
+%{py_sitedir}/%{module}/compat
 %{py_sitedir}/%{module}/delaunay
+%{py_sitedir}/%{module}/externals
 %{py_sitedir}/%{module}/mpl-data
 %{py_sitedir}/%{module}/projections
 %{py_sitedir}/%{module}/sphinxext
+%{py_sitedir}/%{module}/style
 %{py_sitedir}/%{module}/testing
 %{py_sitedir}/%{module}/tri
 
@@ -164,34 +170,43 @@ rm -rf $RPM_BUILD_ROOT
 %{py_sitedir}/pylab.py[co]
 %if "%{py_ver}" > "2.4"
 %{py_sitedir}/%{module}-*.egg-info
+%{py_sitedir}/%{module}-*.pth
 %endif
 %endif
 
 %if %{with python3}
 %files -n python3-%{module}
 %defattr(644,root,root,755)
-%doc CHANGELOG README.txt TODO
+%doc CHANGELOG README.rst
 %dir %{py3_sitedir}/%{module}
 %{py3_sitedir}/%{module}/*.py
 %{py3_sitedir}/%{module}/__pycache__
 %attr(755,root,root) %{py3_sitedir}/%{module}/*.so
+%dir %{py3_sitedir}/%{module}/axes
+%{py3_sitedir}/%{module}/axes/*.py
+%{py3_sitedir}/%{module}/axes/__pycache__
 %dir %{py3_sitedir}/%{module}/backends
 %{py3_sitedir}/%{module}/backends/*.py
 %{py3_sitedir}/%{module}/backends/__pycache__
 %attr(755,root,root) %{py3_sitedir}/%{module}/backends/*.so
-%dir %{py3_sitedir}/%{module}/backends/qt4_editor
-%{py3_sitedir}/%{module}/backends/qt4_editor/*.py
-%{py3_sitedir}/%{module}/backends/qt4_editor/__pycache__
+%dir %{py3_sitedir}/%{module}/backends/qt_editor
+%{py3_sitedir}/%{module}/backends/qt_editor/*.py
+%{py3_sitedir}/%{module}/backends/qt_editor/__pycache__
 %dir %{py3_sitedir}/%{module}/backends/Matplotlib.nib
 %{py3_sitedir}/%{module}/backends/Matplotlib.nib/*.nib
+%{py3_sitedir}/%{module}/backends/web_backend
+%{py3_sitedir}/%{module}/compat
 %{py3_sitedir}/%{module}/delaunay
+%{py3_sitedir}/%{module}/externals
 %{py3_sitedir}/%{module}/mpl-data
 %{py3_sitedir}/%{module}/projections
 %{py3_sitedir}/%{module}/sphinxext
+%{py3_sitedir}/%{module}/style
 %{py3_sitedir}/%{module}/testing
 %{py3_sitedir}/%{module}/tri
 %{py3_sitedir}/mpl_toolkits
 %{py3_sitedir}/pylab.py
 %{py3_sitedir}/__pycache__
 %{py3_sitedir}/%{module}-*.egg-info
+%{py3_sitedir}/%{module}-*.pth
 %endif
