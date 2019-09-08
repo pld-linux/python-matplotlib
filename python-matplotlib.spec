@@ -1,8 +1,12 @@
+#
 # Conditional build:
-%bcond_without  python2 # CPython 2.x module
-%bcond_without  python3 # CPython 3.x module
+%bcond_without	python2 # CPython 2.x module
+%bcond_without	python3 # CPython 3.x module
+%bcond_with	tests	# unit tests [many failures as of 1.5.3]
+
 # TODO:
-# - use system fonts (cm*.ttf) and metrics in mpl-data dir?
+# - use system fonts (mpl-data/fonts/ttf/cm*.ttf) and metrics (mpl-data/fonts/{afm,pdfcorefonts}/*.afm) in mpl-data dir?
+# - use system six? (instead of matplotlib.externals.six)
 # - make sure all dependencies that are available for Python3 are build for Python3
 #   and included in BR when neccessary
 %define		module	matplotlib
@@ -10,52 +14,82 @@ Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 Version:	1.5.3
-Release:	3
-License:	GPL
+Release:	4
+License:	PSF
 Group:		Libraries/Python
+#Source0Download: https://github.com/matplotlib/matplotlib/releases
+# TODO: https://github.com/matplotlib/matplotlib/archive/v%{version}/matplotlib-%{version}.tar.gz
 Source0:	https://github.com/matplotlib/matplotlib/archive/v%{version}.tar.gz
 # Source0-md5:	079d9d8cd9910e00ed1236fb44a518a7
-URL:		http://matplotlib.sourceforge.net/
-BuildRequires:	rpmbuild(macros) >= 1.710
-BuildRequires:	freetype-devel
+URL:		https://matplotlib.org/
+BuildRequires:	agg-devel
+BuildRequires:	freetype-devel >= 1:2.3
+BuildRequires:	ghostscript
+BuildRequires:	gtk+3 >= 3.0
+BuildRequires:	libpng-devel >= 1.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
+BuildRequires:	pkgconfig
+# /usr/bin/pdftops
+BuildRequires:	poppler-progs
+BuildRequires:	qhull >= 2003.1
+BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.714
+# /usr/bin/dvipng
+BuildRequires:	texlive
+BuildRequires:	tk-devel
 %if %{with python2}
+BuildRequires:	gtk+2-devel >= 1:2.0
 BuildRequires:	python >= 1:2.6
 BuildRequires:	python-PyQt4
+BuildRequires:	python-PyQt5
+BuildRequires:	python-cycler
 BuildRequires:	python-dateutil
 BuildRequires:	python-devel
-BuildRequires:	python-numpy-devel >= 1:1.0.3
-BuildRequires:	python-numpy-numarray-devel
-BuildRequires:	python-pygtk-devel
+BuildRequires:	python-numpy-devel >= 1:1.6
+# or cairocffi
+BuildRequires:	python-pycairo
+BuildRequires:	python-pygobject3-devel >= 3.0
+BuildRequires:	python-pygtk-devel >= 1:2.2.0
+BuildRequires:	python-pyparsing >= 1.5.6
 BuildRequires:	python-pytz
-# Need for import pyqtconfig needed by qt detection.
+BuildRequires:	python-setuptools
+# for import pyqtconfig needed by qt detection.
 BuildRequires:	python-sip-devel
 BuildRequires:	python-tkinter
-BuildRequires:	python-wxPython
-%pyrequires_eq	python-modules
+BuildRequires:	python-tornado
+BuildRequires:	python-wxPython >= 2.8
+%if %{with tests}
+BuildRequires:	python-mock
+BuildRequires:	python-nose >= 0.11.1
+%endif
 %endif
 %if %{with python3}
 BuildRequires:	python3 >= 1:3.3
 BuildRequires:	python3-2to3
 BuildRequires:	python3-PyQt4
-BuildRequires:	python3-dateutil
+BuildRequires:	python3-PyQt5
+BuildRequires:	python3-cycler
+BuildRequires:	python3-dateutil >= 2.2
 BuildRequires:	python3-devel
-BuildRequires:	python3-numpy-devel >= 1:1.0.3
-BuildRequires:	python3-numpy-numarray-devel
+BuildRequires:	python3-numpy-devel >= 1:1.6
+# or cairocffi
+BuildRequires:	python3-pycairo
+BuildRequires:	python3-pygobject3-devel >= 3.0
+BuildRequires:	python3-pyparsing >= 2.1.3
 BuildRequires:	python3-pytz
-# Need for import pyqtconfig needed by qt detection.
-#BuildRequires:	python3-sip-devel
-BuildRequires:	python3-six
+BuildRequires:	python3-setuptools
+# for import pyqtconfig needed by qt detection.
+BuildRequires:	python3-sip-devel
 BuildRequires:	python3-tkinter
-#BuildRequires:	python3-wxPython
+BuildRequires:	python3-tornado
+#BuildRequires:	python3-wxPython >= 2.8
+%if %{with tests}
+BuildRequires:	python3-nose >= 0.11.1
 %endif
-BuildRequires:	rpm-pythonprov
-BuildRequires:	tk-devel
-Requires:	python-dateutil
-Requires:	python-numpy >= 1:1.1
-Requires:	python-numpy-oldnumeric
-Requires:	python-pytz
+%endif
+Requires:	freetype >= 1:2.3
+Requires:	python-modules >= 1:2.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -74,10 +108,8 @@ przechodzących z Matlaba.
 Summary:	Matlab(TM) style Python 3 plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie 3 podobny do Matlaba(TM)
 Group:		Libraries/Python
-Requires:	python3-six
-Requires:	python3-dateutil
-Requires:	python3-numpy
-Requires:	python3-pytz
+Requires:	freetype >= 1:2.3
+Requires:	python3-modules >= 1:3.3
 
 %description -n python3-%{module}
 matplotlib strives to produce publication quality 2D graphics using
@@ -94,17 +126,25 @@ przechodzących z Matlaba.
 %prep
 %setup -q -n %{module}-%{version}
 
-rm -f setup.cfg
-
 %build
 export CFLAGS="%{rpmcflags}"
 
 %if %{with python2}
 %py_build
+
+%if %{with tests}
+PYTHONPATH=$(readlink -f build-2/lib.*) \
+%{__python} tests.py --no-network
+%endif
 %endif
 
 %if %{with python3}
 %py3_build
+
+%if %{with tests}
+PYTHONPATH=$(readlink -f build-2/lib.*) \
+%{__python3} tests.py --no-network
+%endif
 %endif
 
 %install
@@ -113,28 +153,22 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %py_install
 
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %py_postclean
 
 # matplotlib can use system fonts, so drop these copies
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/matplotlib/mpl-data/Vera*.ttf
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/matplotlib/mpl-data/fonts/ttf/Vera*.ttf
 
-rm -rf $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py_sitedir}/%{module}/tests
 %endif
 
 %if %{with python3}
 %py3_install
 
-%py3_ocomp $RPM_BUILD_ROOT%{py3_sitedir}
-%py3_comp $RPM_BUILD_ROOT%{py3_sitedir}
-
 # matplotlib can use system fonts, so drop these copies
-rm -f $RPM_BUILD_ROOT%{py3_sitedir}/matplotlib/mpl-data/Vera*.ttf
+%{__rm} $RPM_BUILD_ROOT%{py3_sitedir}/matplotlib/mpl-data/fonts/ttf/Vera*.ttf
 
-rm -rf $RPM_BUILD_ROOT%{py3_sitedir}/%{module}/tests
+%{__rm} -r $RPM_BUILD_ROOT%{py3_sitedir}/%{module}/tests
 %endif
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
