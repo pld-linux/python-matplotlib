@@ -1,0 +1,26 @@
+--- matplotlib-1.5.3/setup.py~	2016-09-09 04:50:50.000000000 +0200
++++ matplotlib-1.5.3/setup.py	2019-10-29 14:13:54.317435965 +0100
+@@ -12,23 +12,6 @@ from setuptools.command.test import test
+ 
+ import sys
+ 
+-# distutils is breaking our sdists for files in symlinked dirs.
+-# distutils will copy if os.link is not available, so this is a hack
+-# to force copying
+-import os
+-try:
+-    del os.link
+-except AttributeError:
+-    pass
+-
+-# This 'if' statement is needed to prevent spawning infinite processes
+-# on Windows
+-if __name__ == '__main__':
+-    # BEFORE importing distutils, remove MANIFEST. distutils doesn't properly
+-    # update it when the contents of directories change.
+-    if os.path.exists('MANIFEST'):
+-        os.remove('MANIFEST')
+-
+ try:
+     from setuptools import setup
+ except ImportError:
