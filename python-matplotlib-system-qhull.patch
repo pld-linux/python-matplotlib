@@ -1,0 +1,28 @@
+--- matplotlib-2.2.5/setupext.py.orig	2020-02-02 00:15:39.000000000 +0100
++++ matplotlib-2.2.5/setupext.py	2020-03-31 20:24:37.308082463 +0200
+@@ -234,6 +234,7 @@
+ 
+ lft = bool(os.environ.get('MPLLOCALFREETYPE', False))
+ options['local_freetype'] = lft or options.get('local_freetype', False)
++options['local_qhull'] = False
+ 
+ 
+ def get_win32_compiler():
+@@ -1410,8 +1411,7 @@
+     def check(self):
+         self.__class__.found_external = True
+         try:
+-            return self._check_for_pkg_config(
+-                'libqhull', 'libqhull/qhull_a.h', min_version='2015.2')
++            return not options.get('local_qhull', False)
+         except CheckFailed as e:
+             self.__class__.found_pkgconfig = False
+             self.__class__.found_external = False
+@@ -1419,6 +1419,7 @@
+ 
+     def add_flags(self, ext):
+         if self.found_external:
++            ext.libraries.append('qhull')
+             pkg_config.setup_extension(ext, 'qhull',
+                                        default_libraries=['qhull'])
+         else:
