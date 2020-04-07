@@ -1,8 +1,9 @@
+# NOTE: for versions >= 3 (for python 3.6+) see python3-matplotlib.spec
 # TODO: system jquery and jquery-ui (when they become up to date)
 #
 # Conditional build:
 %bcond_without	python2 # CPython 2.x module
-%bcond_without	python3 # CPython 3.x module
+%bcond_with	python3 # CPython 3.x module
 %bcond_with	tests	# unit tests [many failures as of 1.5.3]
 
 # TODO:
@@ -13,6 +14,7 @@
 Summary:	Matlab(TM) style Python plotting package
 Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
+# keep 2.x here for python2 support
 Version:	2.2.5
 Release:	1
 License:	PSF
