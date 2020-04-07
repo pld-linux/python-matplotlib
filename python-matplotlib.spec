@@ -1,3 +1,4 @@
+# TODO: system jquery and jquery-ui (when they become up to date)
 #
 # Conditional build:
 %bcond_without	python2 # CPython 2.x module
@@ -19,6 +20,8 @@ Group:		Libraries/Python
 #Source0Download: https://github.com/matplotlib/matplotlib/releases
 Source0:	https://github.com/matplotlib/matplotlib/archive/v%{version}/matplotlib-%{version}.tar.gz
 # Source0-md5:	8c49e6086ec06f3b5e9a1b7ad1ac37ff
+Source1:	https://jqueryui.com/resources/download/jquery-ui-1.12.1.zip
+# Source1-md5:	e0cfea21c9d1acd37fb58592f2c1f50d
 Patch0:		%{name}-system-qhull.patch
 URL:		https://matplotlib.org/
 #BuildRequires:	agg-devel
@@ -131,6 +134,8 @@ przechodzących z Matlaba.
 %prep
 %setup -q -n %{module}-%{version}
 %patch0 -p1
+
+unzip -q %{SOURCE1} -d lib/matplotlib/backends/web_backend
 
 %build
 export CFLAGS="%{rpmcflags}"
