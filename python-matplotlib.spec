@@ -16,7 +16,7 @@ Summary(pl.UTF-8):	Pakiet do rysowania w Pythonie podobny do Matlaba(TM)
 Name:		python-%{module}
 # keep 2.x here for python2 support
 Version:	2.2.5
-Release:	2
+Release:	3
 License:	PSF
 Group:		Libraries/Python
 #Source0Download: https://github.com/matplotlib/matplotlib/releases
