@@ -135,7 +135,7 @@ przechodzących z Matlaba.
 
 %prep
 %setup -q -n %{module}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 unzip -q %{SOURCE1} -d lib/matplotlib/backends/web_backend
 
